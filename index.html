@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuesioner Rental Gunung Suhu 🏕️🦅</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Font meme wajib */
+        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap');
+        body { font-family: 'Comic Neue', 'Comic Sans MS', cursive, sans-serif; }
+        
+        /* Animasi background norak */
+        .bg-meme {
+            background: linear-gradient(45deg, #fbbf24, #a3e635, #22d3ee, #f472b6);
+            background-size: 400% 400%;
+            animation: gradientBG 5s ease infinite;
+        }
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Animasi goyang meme */
+        .goyang-meme:hover { animation: goyang 0.5s infinite; cursor: pointer; }
+        @keyframes goyang {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(5deg) scale(1.1); }
+            50% { transform: rotate(0deg); }
+            75% { transform: rotate(-5deg) scale(1.1); }
+            100% { transform: rotate(0deg); }
+        }
+    </style>
+</head>
+<body class="bg-meme min-h-screen p-4 flex flex-col items-center justify-center">
+
+    <audio id="audioKicau" loop>
+        <source src="">
+    </audio>
+
+    <div id="splashScreen" class="text-center z-50 flex flex-col items-center justify-center min-h-screen w-full fixed top-0 left-0 bg-yellow-300/90 backdrop-blur-sm">
+        <img src="https://media.tenor.com/J4r05553kYAAAAAM/burung-joget.gif" alt="Burung Joget" class="w-48 h-48 mb-6 rounded-full border-8 border-green-500 shadow-2xl goyang-meme">
+        <h1 class="text-4xl md:text-6xl font-black text-red-600 drop-shadow-lg mb-8 outline-4 outline-black">SURVEY ALAT GUNUNG NGAB!</h1>
+        <button onclick="mulaiNgasihData()" class="bg-green-500 hover:bg-green-600 text-white text-3xl font-bold py-6 px-12 rounded-full border-4 border-black shadow-[8px_8px_0px_rgba(0,0,0,1)] transform hover:-translate-y-2 transition-all">
+            Gas Ngisi Ngab! 🦅<br><span class="text-sm">(Play Kicau)</span>
+        </button>
+    </div>
+
+    <div id="mainFormContainer" class="hidden w-full max-w-3xl bg-white/95 border-8 border-black rounded-3xl p-6 md:p-10 shadow-[16px_16px_0px_rgba(0,0,0,1)] mt-8 mb-12">
+        
+        <div class="text-center mb-8 border-b-4 border-dashed border-gray-400 pb-6">
+            <h2 class="text-3xl font-extrabold text-blue-700">🏕️ KUESIONER RENTAL ALAT GUNUNG 🏕️</h2>
+            <p class="text-gray-600 mt-2 font-bold">Isi yang jujur ya ngab, biar data skripsi/tugasnya valid! 🙏</p>
+            <img src="https://media.tenor.com/Zq0Kz00vNlMAAAAM/pepe-ok.gif" class="w-16 mx-auto mt-4" alt="Pepe">
+        </div>
+
+        <form id="formGunung" onsubmit="kirimData(event)" class="space-y-10">
+            
+            <div class="bg-blue-100 p-6 rounded-xl border-4 border-blue-400 relative">
+                <span class="absolute -top-4 left-4 bg-blue-500 text-white font-bold px-4 py-1 rounded-full border-2 border-black">Bagian 1: Profil Suhu</span>
+                
+                <div class="mt-4 space-y-4">
+                    <div>
+                        <label class="block font-bold mb-1">1. Nama / Panggilan Suhu:</label>
+                        <input type="text" name="nama" required class="w-full p-3 border-2 border-black rounded-lg focus:ring-4 focus:ring-yellow-400 outline-none">
+                    </div>
+                    
+                    <div>
+                        <label class="block font-bold mb-1">2. Usia saat ini:</label>
+                        <div class="space-y-1">
+                            <label class="block"><input type="radio" name="usia" value="< 18 tahun" required> < 18 tahun</label>
+                            <label class="block"><input type="radio" name="usia" value="18–24 tahun"> 18–24 tahun</label>
+                            <label class="block"><input type="radio" name="usia" value="25–34 tahun"> 25–34 tahun</label>
+                            <label class="block"><input type="radio" name="usia" value="35–44 tahun"> 35–44 tahun</label>
+                            <label class="block"><input type="radio" name="usia" value="> 45 tahun"> > 45 tahun</label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block font-bold mb-1">3. Pekerjaan:</label>
+                        <select name="pekerjaan" required class="w-full p-3 border-2 border-black rounded-lg outline-none cursor-pointer">
+                            <option value="" disabled selected>Pilih gawean ngab...</option>
+                            <option value="Pelajar/Mahasiswa">Pelajar/Mahasiswa</option>
+                            <option value="Karyawan">Karyawan</option>
+                            <option value="Freelancer">Freelancer</option>
+                            <option value="Wirausaha">Wirausaha</option>
+                            <option value="Lainnya">Lainnya (Tulis di bawah)</option>
+                        </select>
+                        <input type="text" name="pekerjaan_lainnya" placeholder="Kalau lainnya, sebutkan di sini..." class="w-full mt-2 p-3 border-2 border-black rounded-lg outline-none">
+                    </div>
+
+                    <div>
+                        <label class="block font-bold mb-1">4. Seberapa sering mendaki/outdoor?</label>
+                        <div class="space-y-1">
+                            <label class="block"><input type="radio" name="frekuensi" value="Rutin (> 1x sebulan)" required> Rutin (Lebih dari 1 kali sebulan)</label>
+                            <label class="block"><input type="radio" name="frekuensi" value="Beberapa kali setahun"> Beberapa kali setahun</label>
+                            <label class="block"><input type="radio" name="frekuensi" value="Jarang (1x setahun/kurang)"> Jarang (1 kali setahun atau kurang)</label>
+                            <label class="block"><input type="radio" name="frekuensi" value="Hanya diajak"> Hanya saat ada ajakan teman/momen tertentu</label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block font-bold mb-1">5. Level pengalaman pendakian?</label>
+                        <div class="space-y-1">
+                            <label class="block"><input type="radio" name="level" value="Pemula" required> Pemula (Baru pertama/jarang)</label>
+                            <label class="block"><input type="radio" name="level" value="Menengah"> Menengah (Bisa urus diri sendiri)</label>
+                            <label class="block"><input type="radio" name="level" value="Berpengalaman/Guide"> Berpengalaman / Guide (Sering bawa rombongan)</label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block font-bold mb-1">6. Budget sewa alat per trip?</label>
+                        <div class="space-y-1">
+                            <label class="block"><input type="radio" name="budget" value="< Rp 100.000" required> < Rp 100.000</label>
+                            <label class="block"><input type="radio" name="budget" value="Rp 100.000 – Rp 300.000"> Rp 100.000 – Rp 300.000</label>
+                            <label class="block"><input type="radio" name="budget" value="Rp 300.000 – Rp 500.000"> Rp 300.000 – Rp 500.000</label>
+                            <label class="block"><input type="radio" name="budget" value="> Rp 500.000"> > Rp 500.000</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-green-100 p-6 rounded-xl border-4 border-green-400 relative">
+                <span class="absolute -top-4 left-4 bg-green-500 text-white font-bold px-4 py-1 rounded-full border-2 border-black">Bagian 2: Kelakuan Pas Nyewa</span>
+                
+                <div class="mt-4 space-y-4">
+                    <div>
+                        <label class="block font-bold mb-1">7. Biasanya nyewa lewat mana?</label>
+                        <select name="jalur_sewa" required class="w-full p-3 border-2 border-black rounded-lg">
+                            <option value="" disabled selected>Pilih jalur ninja...</option>
+                            <option value="Datang langsung ke toko offline">Datang langsung ke toko rental offline</option>
+                            <option value="Booking via WA/IG">Booking via WhatsApp/Instagram toko rental</option>
+                            <option value="Teman/Komunitas">Teman / Komunitas</option>
+                            <option value="Marketplace/Aplikasi">Marketplace atau platform online khusus</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block font-bold mb-1">8. Tujuan utama buka aplikasi rental?</label>
+                        <div class="space-y-1">
+                            <label class="block"><input type="radio" name="tujuan_app" value="Cek stok" required> Mengecek ketersediaan barang (stok)</label>
+                            <label class="block"><input type="radio" name="tujuan_app" value="Banding harga"> Melihat katalog harga dan membandingkannya</label>
+                            <label class="block"><input type="radio" name="tujuan_app" value="Cari paket"> Mencari paket rental (bundling) agar praktis</label>
+                            <label class="block"><input type="radio" name="tujuan_app" value="Baca panduan"> Membaca panduan / checklist alat yang wajib dibawa</label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block font-bold mb-1">9. Fitur paling dibutuhkan di aplikasi?</label>
+                        <div class="space-y-1">
+                            <label class="block"><input type="radio" name="fitur_butuh" value="Real-time stok" required> Cek stok alat secara real-time</label>
+                            <label class="block"><input type="radio" name="fitur_butuh" value="Filter pencarian"> Filter pencarian (jenis, merk, ukuran)</label>
+                            <label class="block"><input type="radio" name="fitur_butuh" value="Booking & DP Online"> Sistem booking & bayar DP online</label>
+                            <label class="block"><input type="radio" name="fitur_butuh" value="Paket bundling"> Paket bundling (Paket Pemula, Paket 4 Orang)</label>
+                            <label class="block"><input type="radio" name="fitur_butuh" value="Rekomendasi by gunung"> Rekomendasi alat berdasarkan gunung tujuan</label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block font-bold mb-1">10. Pernah bingung nentuin alat yang disewa?</label>
+                        <div class="flex space-x-4">
+                            <label><input type="radio" name="pernah_bingung" value="Ya" required> Ya, pernah puyeng</label>
+                            <label><input type="radio" name="pernah_bingung" value="Tidak"> Nggak, udah pro</label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block font-bold mb-1">11. Kalau Ya, apa penyebabnya?</label>
+                        <select name="sebab_bingung" class="w-full p-3 border-2 border-black rounded-lg">
+                            <option value="-">Pilih alasannya ngab...</option>
+                            <option value="Gak tau medan/cuaca">Tidak tahu medan/cuaca gunung yang akan dituju</option>
+                            <option value="Kurang paham fungsi/ukuran">Kurang paham fungsi detail atau ukuran alat (carrier/tenda)</option>
+                            <option value="Takut ada yang terlewat">Takut ada alat penting yang terlewat (tidak ada checklist)</option>
+                            <option value="Pilihan terlalu banyak">Pilihan merk/jenis di tempat rental terlalu banyak</option>
+                            <option value="Lainnya">Lainnya (Tulis di bawah)</option>
+                        </select>
+                        <input type="text" name="sebab_bingung_lain" placeholder="Lainnya..." class="w-full mt-2 p-3 border-2 border-black rounded-lg outline-none">
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-yellow-100 p-6 rounded-xl border-4 border-yellow-400 relative">
+                <span class="absolute -top-4 left-4 bg-yellow-500 text-black font-bold px-4 py-1 rounded-full border-2 border-black">Bagian 3: Galau Memilih</span>
+                
+                <div class="mt-4 space-y-4">
+                    <div>
+                        <label class="block font-bold mb-1">12. Pertimbangan utama milih tempat rental?</label>
+                        <div class="space-y-1">
+                            <label class="block"><input type="radio" name="pertimbangan" value="Kebersihan/Kondisi" required> Kebersihan dan kondisi alat (terawat)</label>
+                            <label class="block"><input type="radio" name="pertimbangan" value="Harga murah"> Harga sewa yang murah/terjangkau</label>
+                            <label class="block"><input type="radio" name="pertimbangan" value="Variasi lengkap"> Kelengkapan variasi barang</label>
+                            <label class="block"><input type="radio" name="pertimbangan" value="Jarak dekat"> Jarak lokasi rental dari rumah / basecamp</label>
+                            <label class="block"><input type="radio" name="pertimbangan" value="Mudah jaminan"> Kemudahan proses jaminan (KTP/identitas)</label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block font-bold mb-1">13. Bikin ragu sebelum booking?</label>
+                        <div class="space-y-1">
+                            <label class="block"><input type="radio" name="ragu_booking" value="Takut barang jelek" required> Takut barangnya ternyata rusak/kotor saat diambil</label>
+                            <label class="block"><input type="radio" name="ragu_booking" value="Ulasan jelek"> Ulasan tempat rental yang kurang meyakinkan</label>
+                            <label class="block"><input type="radio" name="ragu_booking" value="Takut stok habis"> Takut stok barang tiba-tiba habis padahal sudah datang</label>
+                            <label class="block"><input type="radio" name="ragu_booking" value="Denda gak jelas"> Syarat dan ketentuan denda yang tidak jelas/memberatkan</label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block font-bold mb-1">14. Liat referensi alat dari mana?</label>
+                        <select name="referensi" required class="w-full p-3 border-2 border-black rounded-lg">
+                            <option value="" disabled selected>Pilih sumber wangsit...</option>
+                            <option value="Tiktok">Tiktok</option>
+                            <option value="YouTube">YouTube</option>
+                            <option value="Instagram/Akun Gunung">Instagram / Akun Info Gunung</option>
+                            <option value="Tanya Teman/Ketua">Tanya teman / Ketua rombongan</option>
+                            <option value="Blog/Artikel">Blog / Website artikel pendakian</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-red-100 p-6 rounded-xl border-4 border-red-400 relative">
+                <span class="absolute -top-4 left-4 bg-red-500 text-white font-bold px-4 py-1 rounded-full border-2 border-black">Bagian 4: Pain Points / Masalah</span>
+                
+                <div class="mt-4 space-y-4">
+                    <div>
+                        <label class="block font-bold mb-1">15. Kesulitan sewa online/chat?</label>
+                        <div class="space-y-1">
+                            <label class="block"><input type="radio" name="kendala_online" value="Admin slow respon" required> Admin lambat merespons (slow respon)</label>
+                            <label class="block"><input type="radio" name="kendala_online" value="Stok gak update"> Ketersediaan barang tidak terupdate (harus tanya satu-satu)</label>
+                            <label class="block"><input type="radio" name="kendala_online" value="Foto vs Asli beda"> Foto barang di katalog berbeda dengan kondisi aslinya</label>
+                            <label class="block"><input type="radio" name="kendala_online" value="Bingung ukuran"> Bingung menentukan ukuran (sepatu, carrier)</label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block font-bold mb-1">16. Fitur yang masih kurang saat ini?</label>
+                        <div class="space-y-1">
+                            <label class="block"><input type="radio" name="kurang_fitur" value="Delivery" required> Sistem pengantaran & penjemputan (Delivery/Pick-up)</label>
+                            <label class="block"><input type="radio" name="kurang_fitur" value="Review spesifik"> Review/Rating spesifik kondisi alat dari penyewa sebelumnya</label>
+                            <label class="block"><input type="radio" name="kurang_fitur" value="Rekomendasi AI"> Rekomendasi AI pintar (masukkan tujuan -> muncul alat)</label>
+                            <label class="block"><input type="radio" name="kurang_fitur" value="Video tutorial"> Video tutorial cara pakai alat (cara pasang tenda)</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-purple-100 p-6 rounded-xl border-4 border-purple-400 relative">
+                <span class="absolute -top-4 left-4 bg-purple-500 text-white font-bold px-4 py-1 rounded-full border-2 border-black">Bagian 5: Validasi Ide Suhu</span>
+                
+                <div class="mt-4 space-y-4">
+                    <div>
+                        <label class="block font-bold mb-1">17. Fitur paling menarik di app baru?</label>
+                        <div class="space-y-1">
+                            <label class="block"><input type="radio" name="fitur_idaman" value="Jaminan barang" required> Jaminan barang pasti tersedia setelah booking</label>
+                            <label class="block"><input type="radio" name="fitur_idaman" value="Layanan antar jemput"> Layanan antar-jemput alat ke rumah/meeting point</label>
+                            <label class="block"><input type="radio" name="fitur_idaman" value="Sistem paket pintar"> Sistem paket/bundling cerdas sesuai gunung tujuan</label>
+                            <label class="block"><input type="radio" name="fitur_idaman" value="Poin loyalty"> Poin loyalty / diskon member</label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block font-bold mb-2">18. Seberapa tertarik dengan fitur ini? (1=Benci, 5=Suka Banget)</label>
+                        
+                        <div class="bg-white p-3 rounded border border-gray-300 mb-2">
+                            <p class="font-bold text-sm mb-1">Cek Stok Real-time</p>
+                            <div class="flex justify-between w-full max-w-xs">
+                                <label>1 <input type="radio" name="rate_stok" value="1" required></label>
+                                <label>2 <input type="radio" name="rate_stok" value="2"></label>
+                                <label>3 <input type="radio" name="rate_stok" value="3"></label>
+                                <label>4 <input type="radio" name="rate_stok" value="4"></label>
+                                <label>5 <input type="radio" name="rate_stok" value="5"></label>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-3 rounded border border-gray-300 mb-2">
+                            <p class="font-bold text-sm mb-1">Rekomendasi Checklist via AI</p>
+                            <div class="flex justify-between w-full max-w-xs">
+                                <label>1 <input type="radio" name="rate_ai" value="1" required></label>
+                                <label>2 <input type="radio" name="rate_ai" value="2"></label>
+                                <label>3 <input type="radio" name="rate_ai" value="3"></label>
+                                <label>4 <input type="radio" name="rate_ai" value="4"></label>
+                                <label>5 <input type="radio" name="rate_ai" value="5"></label>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-3 rounded border border-gray-300 mb-2">
+                            <p class="font-bold text-sm mb-1">Delivery/Pick-up Alat</p>
+                            <div class="flex justify-between w-full max-w-xs">
+                                <label>1 <input type="radio" name="rate_delivery" value="1" required></label>
+                                <label>2 <input type="radio" name="rate_delivery" value="2"></label>
+                                <label>3 <input type="radio" name="rate_delivery" value="3"></label>
+                                <label>4 <input type="radio" name="rate_delivery" value="4"></label>
+                                <label>5 <input type="radio" name="rate_delivery" value="5"></label>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-3 rounded border border-gray-300">
+                            <p class="font-bold text-sm mb-1">Review Kondisi dari User Lain</p>
+                            <div class="flex justify-between w-full max-w-xs">
+                                <label>1 <input type="radio" name="rate_review" value="1" required></label>
+                                <label>2 <input type="radio" name="rate_review" value="2"></label>
+                                <label>3 <input type="radio" name="rate_review" value="3"></label>
+                                <label>4 <input type="radio" name="rate_review" value="4"></label>
+                                <label>5 <input type="radio" name="rate_review" value="5"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="loadingMeme" class="hidden text-center py-4">
+                <img src="https://media.tenor.com/On7kvXhzMl4AAAAj/loading-cat.gif" class="w-20 mx-auto rounded-full shadow-lg" alt="Loading">
+                <p class="font-bold text-blue-700 mt-2">Sabar ngab, burung lagi terbang bawa data ke server... 🕊️🚀</p>
+            </div>
+
+            <button type="submit" id="btnSubmit" class="w-full bg-red-600 hover:bg-red-700 text-white font-black text-2xl py-4 rounded-2xl border-4 border-black shadow-[8px_8px_0px_rgba(0,0,0,1)] uppercase transform hover:translate-y-1 transition-all">
+                KIRIM JAWABAN NGAB! 🚀
+            </button>
+        </form>
+    </div>
+
+    <script>
+        // MASUKKAN URL WEB APP GOOGLE SCRIPT DI SINI!
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxwSdL4mO4AdNwndAPYXcBRwstzGQZpT0QRGkLIvgIxIHUbz2GtvzLbah0XMhQXrTptyg/exec'; 
+
+        // Fungsi Tombol Splash Screen (Play Audio & Tampil Form)
+        function mulaiNgasihData() {
+            const audio = document.getElementById('audioKicau');
+            audio.volume = 0.5; // Biar ga kaget banget
+            audio.play().catch(e => console.log("Browser rewel soal autoplay ngab:", e));
+            
+            document.getElementById('splashScreen').classList.add('hidden');
+            document.getElementById('mainFormContainer').classList.remove('hidden');
+            document.getElementById('mainFormContainer').classList.add('animate-bounce'); 
+            setTimeout(() => {
+                document.getElementById('mainFormContainer').classList.remove('animate-bounce');
+            }, 1000);
+        }
+
+        // Fungsi Kirim Data Fetch API
+        function kirimData(e) {
+            e.preventDefault();
+            const form = document.getElementById('formGunung');
+            const btn = document.getElementById('btnSubmit');
+            const loading = document.getElementById('loadingMeme');
+            
+            // UI Loading Meme State
+            btn.classList.add('hidden');
+            loading.classList.remove('hidden');
+
+            fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+                .then(response => {
+                    alert("🦅 DATA UDAH MASUK NGAB! GACOR KANG! 🔥\n\nMakasih udah bantu ngisi, semoga rezekinya seluas samudra dan sedalam lautan. Amin!");
+                    form.reset();
+                })
+                .catch(error => {
+                    alert("Waduh error ngab! Cek koneksi internet atau URL script-nya. 😭");
+                    console.error('Error ngab!', error.message);
+                })
+                .finally(() => {
+                    // Balikin UI
+                    btn.classList.remove('hidden');
+                    loading.classList.add('hidden');
+                });
+        }
+    </script>
+</body>
+</html>
